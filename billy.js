@@ -14,38 +14,26 @@ var input = [{
     name: 'Billy Idol',
     email: 70,
     age: 'billy@gmail.com'
-}]
+}];
 
 function billy(inp) {
-    var input = inp
-    var temp;
-    for (let user of input) {
-        if (typeof user.name == "number") {
-            temp = user.age;
-            user.age = user.name
-            if (/@/.test(temp)) {
-                user.name = user.email
-                user.email = temp;
-            }
-        } else if (typeof user.email == "number") {
-            temp = user.age;
-            user.age = user.email;
-            if (/@/.test(temp)) {
-                user.email = temp;
+    var temp = {};
+	var user = {};
+    for (let k in inp) {
+		temp = {name: '', email: '', age: 0};
+		for (let j in inp[k]) {
+			if (/^[0-9]*$/.test(inp[k][j])) {
+				temp.age = inp[k][j];
+            } else if (/@/.test(inp[k][j])) {
+				temp.email = inp[k][j];
             } else {
-                user.email = user.name
-                user.name = temp
+				temp.name = inp[k][j];
             }
-        }
-
-        console.log(user);
-
-
-        if (user.email == 'billy@gmail.com') {
-            console.log('A keresett user');
-            console.log(user);
-            //ezt logolja: {name: "Billy Idol", email: "billy@gmail.com", age: 70}
+		}
+        
+        if (temp.email == 'billy@gmail.com') {
+            return temp;
         }
     }
 }
-billy(input)
+billy(input);
